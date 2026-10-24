@@ -9,6 +9,7 @@
         android:allowBackup="true"
         android:supportsRtl="true">
         <activity android:name=".PlayerActivity" android:screenOrientation="sensor" />
+        <activity android:name=".BrowserActivity" android:screenOrientation="sensor" android:exported="false" />
         <activity android:name=".MainActivity" android:screenOrientation="sensor" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
