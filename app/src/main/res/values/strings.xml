@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Universal Video Downloader</string>
+    <string name="url_hint">Paste a direct video URL</string>
+    <string name="download">Download</string>
+    <string name="refresh">Refresh</string>
+    <string name="downloads">Downloads</string>
+    <string name="empty_downloads">No downloads yet</string>
+</resources>
