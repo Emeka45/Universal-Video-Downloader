@@ -23,7 +23,7 @@ public class UrlPolicyTest {
     }
 
     @Test public void sanitizesFileNames() {
-        assertEquals("my__video.mp4", UrlPolicy.safeFileName("my:/video.mp4"));
+        assertEquals("my_video.mp4", UrlPolicy.safeFileName("my:/video.mp4"));
         assertEquals("video", UrlPolicy.safeFileName("   "));
     }
 }
