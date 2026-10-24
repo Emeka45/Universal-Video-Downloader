@@ -3,7 +3,6 @@ package com.emeka45.universalvideodownloader;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -30,6 +29,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends Activity {
     private static final int STORAGE_REQUEST = 42;
+    private static final int NOTIFICATION_REQUEST = 43;
     private EditText urlInput;
     private LinearLayout list;
     private DownloadManager downloadManager;
@@ -48,7 +48,14 @@ public class MainActivity extends Activity {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         store = new DownloadStore(this);
         buildUi();
+        requestNotificationPermissionIfNeeded();
         handleIncomingIntent(getIntent());
+    }
+
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST);
+        }
     }
 
     private void buildUi() {
