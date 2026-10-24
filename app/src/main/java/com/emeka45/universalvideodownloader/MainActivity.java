@@ -85,10 +85,13 @@ public class MainActivity extends Activity {
         LinearLayout buttons = new LinearLayout(this);
         buttons.setOrientation(LinearLayout.HORIZONTAL);
         buttons.setGravity(Gravity.CENTER_VERTICAL);
+        Button browser = new Button(this);
+        browser.setText("Browse");
         Button download = new Button(this);
         download.setText(getString(R.string.download));
         Button refresh = new Button(this);
         refresh.setText(getString(R.string.refresh));
+        buttons.addView(browser, new LinearLayout.LayoutParams(0, -2, 1));
         buttons.addView(download, new LinearLayout.LayoutParams(0, -2, 1));
         buttons.addView(refresh, new LinearLayout.LayoutParams(0, -2, 1));
         root.addView(buttons);
@@ -105,6 +108,12 @@ public class MainActivity extends Activity {
         scroll.addView(list, new ViewGroup.LayoutParams(-1, -2));
         root.addView(scroll, new LinearLayout.LayoutParams(-1, 0, 1));
 
+        browser.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BrowserActivity.class);
+            String shared = urlInput.getText().toString().trim();
+            if (UrlPolicy.isHttpUrl(shared)) intent.putExtra(Intent.EXTRA_TEXT, shared);
+            startActivity(intent);
+        });
         download.setOnClickListener(v -> startDownloadFromInput());
         refresh.setOnClickListener(v -> refreshDownloads());
         setContentView(root);
