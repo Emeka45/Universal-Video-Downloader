@@ -1,25 +1,27 @@
 # Universal Video Downloader
 
-A lightweight native Android app for downloading permitted direct video files and watching them locally.
+A lightweight Android browser and video downloader. It uses the Android System WebView already available on the phone rather than bundling a separate Chromium engine.
 
 ## Features
 
-- Paste a direct HTTP/HTTPS video URL.
-- Receive a video URL through Android's Share menu.
-- Background downloads through Android DownloadManager.
-- Download progress and completion status.
+- Lightweight in-app browser for opening video websites.
+- Monitors HTML5 video playback and detects exposed video sources.
+- Shows available direct video source choices, including resolution labels when the website exposes them.
+- Downloads supported direct video files using Android DownloadManager, including background progress notifications.
+- Carries the browser's session cookie and referring page when starting a download, where available.
+- Paste a direct HTTP/HTTPS video URL or receive one through Android's Share menu.
+- Built-in native player for downloaded videos.
 - Saves videos under `Movies/Universal Video Downloader`.
-- Built-in native video playback.
 - Share or remove completed downloads.
-- Light and dark system themes.
-- No account, ad SDK, analytics SDK, cloud backend, or WebView in the core app.
+- Light/dark system themes.
+- No account, ad SDK, analytics SDK, or cloud backend.
 
-## Current scope
+## Detection limits
 
-Version 0.1 focuses on direct downloadable media URLs such as MP4 and other formats that Android can play. A normal webpage URL is not automatically converted into a video download.
+The detector can show only sources that a website exposes to its page or HTML5 video element. Some websites use encrypted/DRM playback, private APIs, authentication restrictions, or player-specific systems that do not expose downloadable source URLs. This app does not bypass those restrictions.
 
-The app does not bypass DRM, authentication, paywalls, private-content restrictions, or other access controls. Only download media you are authorized to save.
+This lightweight version downloads direct video files (for example MP4 or WebM). HLS/DASH adaptive playlists (`.m3u8` / `.mpd`) require segment downloading and remuxing, so they are identified as streaming playlists and are not falsely presented as completed video downloads. A page may show the current playback resolution without exposing alternate downloadable resolutions.
 
 ## Build
 
-GitHub Actions builds the debug APK and uploads it as a workflow artifact. The project uses Java 17, Android Gradle Plugin 8.7.3, Gradle 8.9, and compile SDK 35.
+GitHub Actions runs unit tests, builds a debug APK, and uploads it as a workflow artifact. The project uses Java 17, Android Gradle Plugin 8.7.3, Gradle 8.9, and compile SDK 35.
